@@ -13,7 +13,7 @@
     "@gradio/client": "1.14.2",
     "@types/tinycolor2": "^1.4.6",
     "amuchina": "^1.0.12",
-    "dompurify": "^3.0.3",
+    "dompurify": "^3.4.16",
     "github-slugger": "^2.0.0",
     "katex": "^0.16.47",
     "marked": "^12.0.2",
