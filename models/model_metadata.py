@@ -158,6 +158,9 @@ def infer_media_inputs(model_def):
         },
         "audio": {
             "prompt": bool(model_def.get("any_audio_prompt", False)),
+            "reference": bool(model_def.get("reference_audio_enabled", False)),
+            # A control audio drives the output and is kept as its soundtrack.
+            "control": bool(model_def.get("output_audio_is_input_audio", False)) or _choice_values_contain(model_def.get("audio_prompt_type_sources", None), "S"),
             "output": bool(model_def.get("audio_only", False) or model_def.get("returns_audio", False)),
         },
     }
@@ -188,6 +191,8 @@ def infer_capabilities(model_def, main_outputs, outputs, inputs, media_inputs):
         "video_continuation": video_inputs["continue"],
         "sliding_window": bool(model_def.get("sliding_window", False)),
         "lora": not bool(model_def.get("no_lora", False)),
+        # Specialized workflows can narrow capabilities inferred from shared controls.
+        **model_def.get("capability_overrides", {}),
     }
 
 
